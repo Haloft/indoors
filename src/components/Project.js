@@ -18,15 +18,22 @@ import TableRow from '@material-ui/core/TableRow';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import ProjectDialog from './ProjectDialog'
+import TaskDialog from './TaskDialog'
 import { delProject } from '../actions';
+import { delTask } from '../actions'
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       borderBottom: 'unset',
+      padding: '2%',
+      paddingBottom: '0',
+      paddingTop: '0',
+
     },
     seeMore: {
       marginTop: theme.spacing(3),
+
     },
   }
 }));
@@ -34,11 +41,16 @@ const useRowStyles = makeStyles((theme) => ({
 function preventDefault(event) {
   event.preventDefault();
 }
-function Row({ project, fromHours }) {
-  const dispatch = useDispatch()
+function Row({ project, fromHours, tasks }) {
 
+
+  const task = tasks.filter(task => task.project_id == project.id)
+  console.log(task)
+  const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
+
+
   return (
     <>
       <TableRow className={classes.root}>
@@ -50,12 +62,12 @@ function Row({ project, fromHours }) {
         <TableCell component="th" scope="row">
           {project.id}
         </TableCell>
-        <TableCell >{project.date}</TableCell>
-        <TableCell >{project.name}</TableCell>
-        <TableCell >{project.customer}</TableCell>
+        <TableCell >{project.attributes.date}</TableCell>
+        <TableCell >{project.attributes.name}</TableCell>
+        <TableCell >{project.attributes.customer}</TableCell>
         <TableCell >
           {fromHours
-            ? <ProjectDialog id={project.id} isEdit={true} forHours={true} label={<AddCircleOutlineIcon />} />
+            ? <TaskDialog id={project.id} forHours={true} label={<AddCircleOutlineIcon />} />
             : <> <ProjectDialog style={{ color: 'green' }} id={project.id} isEdit={true} label={<EditOutlinedIcon />} />
               <Button onClick={() => dispatch(delProject(project.id))}><DeleteOutlineIcon style={{ color: "red" }} /></Button>
             </>
@@ -73,16 +85,21 @@ function Row({ project, fromHours }) {
                     <TableCell >Tunnit </TableCell>
                   </TableRow>
                 </TableHead>
+
                 <TableBody>
-                  {project.rows.map((row) => (
-                    <TableRow key={row.name}>
+                  {task.map((row, index) => (
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {row.hours}
                       </TableCell>
-                      <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell >
+                        <TaskDialog style={{ color: 'green' }} id={row.id} isEdit={true} label={<EditOutlinedIcon />} />
+                        <Button onClick={() => dispatch(delTask(row.id))}><DeleteOutlineIcon style={{ color: "red" }} />
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -96,6 +113,7 @@ function Row({ project, fromHours }) {
 }
 
 export default function Project(props) {
+  console.log(props)
   const classes = useRowStyles();
 
   return (
@@ -113,13 +131,13 @@ export default function Project(props) {
         </TableHead>
         <TableBody>
           {props.rows.map((project) => (
-            <Row fromHours={props.fromHours} key={project.id} project={project} />
+            <Row fromHours={props.fromHours} key={project.id} tasks={props.tasks} project={project} />
           ))}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
+          See more
         </Link>
       </div>
     </>

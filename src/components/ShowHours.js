@@ -12,40 +12,72 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
+      
+        
     },
 });
 
 export default function ShowHours() {
     const classes = useStyles();
-    const projects = useSelector(state => state);
+    const projects = useSelector(state => state.projects)
 
+    
+    
+  
+    
+    if (projects !== undefined) {
 
-    return (
-        <TableContainer component={Paper}>
-            <Title>Projektien Tunnit</Title>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow >
-                        <TableCell style={{ fontWeight: 'bold' }} >Projekti</TableCell>
-                        <TableCell style={{ fontWeight: 'bold' }} align="right">Alkoi</TableCell>
-                        <TableCell style={{ fontWeight: 'bold' }} align="right">Tunnit</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {projects.map((row) => (
-                        <TableRow key={row.name}>
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.date}</TableCell>
-                            {row.rows.map((r) => (
-                                <TableCell key={r.name} align="right">{r.hours}</TableCell>
-                            ))}
+        return (
+            <TableContainer component={Paper}>
+                <Title>Projektien Tunnit</Title>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow >
+                            <TableCell style={{ fontWeight: 'bold' }} >Projekti</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }} align="right">Alkoi</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }} align="right">Tunnit</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+                    </TableHead>
+                    <TableBody>
+                        {projects.map((row) => (
+                            <TableRow key={row.attributes.name}>
+                                <TableCell component="th" scope="row">
+                                    {row.attributes.name}
+                                </TableCell>
+                                <TableCell align="right">{row.attributes.date}</TableCell>
+                                <TableCell align="right">{row.attributes.sum_hours}</TableCell>                      
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+        
+
+
+
+
+
+
+
+
+    } else {
+
+        return (
+            <TableContainer component={Paper}>
+                <Title>Projektien Tunnit</Title>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow >
+                            <TableCell style={{ fontWeight: 'bold' }} >Projekti</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }} align="right">Alkoi</TableCell>
+                            <TableCell style={{ fontWeight: 'bold' }} align="right">Tunnit</TableCell>
+                        </TableRow>
+                    </TableHead>
+                </Table>
+            </TableContainer>
+        );
+        
+    }
+   
 }

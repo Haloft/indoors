@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
-import ShowHours from './ShowHours';
+import ShowHours from '../components/ShowHours';
 
 function Copyright() {
     return (
@@ -30,10 +30,10 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         height: '100vh',
-        overflow: 'auto',
     },
 
     paper: {
+        width: '80vw',
         padding: theme.spacing(2),
         display: 'flex',
         overflow: 'auto',
@@ -44,15 +44,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Home() {    
+export default function Home() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
             <CssBaseline />
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" >
-                    <Grid container spacing={3}>
+                <Container  >
+                    <Grid container spacing={5}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <ShowHours />

@@ -4,9 +4,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ProjectForm from './ProjectForm'
+import TaskForm from './TaskForm'
 
-export default function ProjectDialog(props) {
+export default function TaskDialog(props) {
     console.log(props)
     const [open, setOpen] = React.useState(false);
 
@@ -16,7 +16,7 @@ export default function ProjectDialog(props) {
 
     const handleClose = () => {
         setOpen(false);
-    };    
+    };
 
     return (
         <div>
@@ -25,12 +25,14 @@ export default function ProjectDialog(props) {
             </Button>
             <Dialog maxWidth={false} fullWidth={false} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 {props.isEdit ?
-                    <DialogTitle>Muokkaa</DialogTitle> :
-                    <DialogTitle>Uusi Projekti</DialogTitle>}
+                    <DialogTitle>Muokkaa Tehtävää</DialogTitle> :
+                    <DialogTitle>Lisää Tehtävä</DialogTitle>
+                }
                 <DialogContent>
                     {props.isEdit ?
-                        <ProjectForm handleClose={handleClose} new={false} id={props.id} /> :
-                        <ProjectForm handleClose={handleClose} new={true} />}
+                        <TaskForm handleClose={handleClose} id={props.id} /> :
+                        <TaskForm handleClose={handleClose} new={true} id={props.id} />
+                    }
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">

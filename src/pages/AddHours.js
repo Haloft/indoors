@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
-import Project from './Project';
+import Project from '../components/Project';
 
 function Copyright() {
     return (
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     paper: {
+        width: '80vw',
         padding: theme.spacing(2),
         display: 'flex',
         overflow: 'auto',
@@ -46,8 +47,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddHours() {
-    const projects = useSelector(state => state);
-    const notDoneProjects = projects.filter(projs => projs.done === false);
+    const projects = useSelector(state => state.projects);
+    const tasks = useSelector(state => state.tasks)
+    const notDoneProjects = projects.filter(projs => projs.attributes.done === false);
+    console.log(projects)
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -59,7 +62,7 @@ export default function AddHours() {
                         {/* Tuntien lisäys */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <Project title="Tuntien Lisäys" fromHours={true} rows={notDoneProjects} />
+                                <Project title="Tuntien Lisäys" tasks={tasks} fromHours={true} rows={notDoneProjects} />
                             </Paper>
                         </Grid>
                     </Grid>
