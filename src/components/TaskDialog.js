@@ -7,7 +7,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TaskForm from './TaskForm'
 
 export default function TaskDialog(props) {
-    console.log(props)
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {

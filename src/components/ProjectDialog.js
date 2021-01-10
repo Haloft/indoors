@@ -7,7 +7,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ProjectForm from './ProjectForm'
 
 export default function ProjectDialog(props) {
-    console.log(props)
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {

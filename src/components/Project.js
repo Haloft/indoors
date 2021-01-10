@@ -45,7 +45,6 @@ function Row({ project, fromHours, tasks }) {
 
 
   const task = tasks.filter(task => task.project_id == project.id)
-  console.log(task)
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
@@ -113,7 +112,6 @@ function Row({ project, fromHours, tasks }) {
 }
 
 export default function Project(props) {
-  console.log(props)
   const classes = useRowStyles();
 
   return (

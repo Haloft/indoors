@@ -71,7 +71,6 @@ export const editTask = (data) => {
 }
 
 export const delTask = (id) => {
-  console.log('id', id)
   return async dispatch => {
     await TaskService.delTask(id)
     dispatch({

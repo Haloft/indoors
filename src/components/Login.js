@@ -43,7 +43,7 @@ export default function Login(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Kirjaudu Sisään
+          Tuntiseuranta
         </Typography>
         <form className={classes.form} onSubmit={props.handleLogin} noValidate>
           <TextField

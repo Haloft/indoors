@@ -50,7 +50,6 @@ export default function AddHours() {
     const projects = useSelector(state => state.projects);
     const tasks = useSelector(state => state.tasks)
     const notDoneProjects = projects.filter(projs => projs.attributes.done === false);
-    console.log(projects)
     const classes = useStyles();
     return (
         <div className={classes.root}>
